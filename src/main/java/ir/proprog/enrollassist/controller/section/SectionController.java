@@ -63,7 +63,7 @@ public class SectionController {
         return demands;
     }
 
-    @PostMapping("/section")
+    @PostMapping
     public SectionView addSection(@RequestBody @NotNull SectionView sectionView) {
         try {
             Course course = new Course(sectionView.getCourseView().getCourseNumber(), new Name(sectionView.getCourseView().getTitle()),
@@ -78,7 +78,7 @@ public class SectionController {
         }
     }
 
-    @PostMapping("/{id}/newClassSchedule")
+    @PostMapping("/{id}/classSchedule")
     public Iterable<ClassScheduleView> addClassSchedule(@PathVariable @NotNull Long id, @RequestBody @NotNull ClassScheduleView classScheduleView) {
         try {
             Section section = sectionRepository.findById(id)

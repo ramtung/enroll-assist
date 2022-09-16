@@ -28,7 +28,7 @@ public class MajorController {
         this.courseRepository = courseRepository;
     }
 
-    @PostMapping("/newMajor")
+    @PostMapping
     public MajorView addMajor(@RequestBody @NotNull MajorView majorView) {
         try {
             Major major = new Major(majorView.getMajorNumber(), majorView.getTitle(), LevelEnum.valueOf(majorView.getLevelEnum()));

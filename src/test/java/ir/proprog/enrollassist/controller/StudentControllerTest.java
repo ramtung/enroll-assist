@@ -47,7 +47,7 @@ public class StudentControllerTest {
         StudentView studentView = new StudentViewBuilder().withName("321").build();
         given(majorRepository.findByMajorNumber(studentView.getMajor().getMajorNumber()))
                 .willReturn(Optional.of(MajorBuilder.aMajor()));
-        mvc.perform(post("/students/newStudent")
+        mvc.perform(post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(studentView)))
                 .andExpect(status().isBadRequest())
@@ -62,7 +62,7 @@ public class StudentControllerTest {
         StudentView studentView = new StudentViewBuilder().withNumber("cba").build();
         given(majorRepository.findByMajorNumber(studentView.getMajor().getMajorNumber()))
                 .willReturn(Optional.of(MajorBuilder.aMajor()));
-        mvc.perform(post("/students/newStudent")
+        mvc.perform(post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(studentView)))
                 .andExpect(status().isBadRequest())
@@ -77,7 +77,7 @@ public class StudentControllerTest {
         StudentView studentView = new StudentViewBuilder().withNumber("000000").build();
         given(majorRepository.findByMajorNumber(studentView.getMajor().getMajorNumber()))
                 .willReturn(Optional.of(MajorBuilder.aMajor()));
-        mvc.perform(post("/students/newStudent")
+        mvc.perform(post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(studentView)))
                 .andExpect(status().isBadRequest())
@@ -93,7 +93,7 @@ public class StudentControllerTest {
         given(studentRepository.findByStudentNumber(studentView.getStudentNumber())).willReturn(Optional.empty());
         given(majorRepository.findByMajorNumber(studentView.getMajor().getMajorNumber()))
                 .willReturn(Optional.of(MajorBuilder.aMajor()));
-        mvc.perform(post("/students/newStudent")
+        mvc.perform(post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(studentView)))
                 .andExpect(status().isOk())
@@ -108,7 +108,7 @@ public class StudentControllerTest {
         given(majorRepository.findByMajorNumber(studentView.getMajor().getMajorNumber()))
                 .willReturn(Optional.of(MajorBuilder.aMajor()));
         given(studentRepository.findByStudentNumber(studentView.getStudentNumber())).willReturn(Optional.of(student));
-        mvc.perform(post("/students/newStudent")
+        mvc.perform(post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(studentView)))
                 .andExpect(status().isBadRequest())
@@ -122,7 +122,7 @@ public class StudentControllerTest {
     public void Given_studentWithInvalidMajor_When_addStudent_Then_throwException() throws Exception {
         StudentView studentView = new StudentViewBuilder().build();
         given(majorRepository.findByMajorNumber(studentView.getMajor().getMajorNumber())).willReturn(Optional.empty());
-        mvc.perform(post("/students/newStudent")
+        mvc.perform(post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(studentView)))
                 .andExpect(status().isBadRequest())

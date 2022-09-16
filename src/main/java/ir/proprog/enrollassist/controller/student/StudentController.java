@@ -33,7 +33,7 @@ public class StudentController {
         this.sectionRepository = sectionRepository;
     }
 
-    @PostMapping("/newStudent")
+    @PostMapping
     public StudentView addStudent(@RequestBody @NotNull StudentView studentView) {
         try {
             Optional<Major> optionalMajor = majorRepository.findByMajorNumber(studentView.getMajor().getMajorNumber());
@@ -58,7 +58,7 @@ public class StudentController {
         return modelMapper.map(student, StudentView.class);
     }
 
-    @GetMapping("/{id}/listOfTakeableSections")
+    @GetMapping("/{id}/takeableSections")
     public List<SectionView> getListOfTakAbleSection(@PathVariable @NotNull Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found"));

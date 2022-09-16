@@ -35,7 +35,7 @@ public class EnrollmentPerformanceTest {
     @Test
     @Disabled
     void Given_repository_When_enrollStudent_Then_checkPerformance() throws Exception {
-        mvc.perform(get("/lists/enrollment")
+        mvc.perform(get("/lists/enroll")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andReturn();

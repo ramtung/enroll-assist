@@ -91,7 +91,7 @@ public class EnrollmentListController {
         return enrollmentList.getSections().stream().map(SectionView::new).collect(Collectors.toList());
     }
 
-    @PostMapping("/newList")
+    @PostMapping
     public EnrollmentListView addEnrollmentList(@RequestBody @NotNull EnrollmentListView enrollmentListView) {
         try {
             Optional<Student> studentOptional = studentRepository.findByStudentNumber(enrollmentListView.getOwnerNumber());
@@ -134,7 +134,7 @@ public class EnrollmentListController {
         return "redirect:/";
     }
 
-    @GetMapping("/enrollment")
+    @GetMapping("/enrollAll")
     public List<SectionEnrollmentResultView> enrollStudents() {
         Set<Section> results = enrollmentListService.enrollStudents();
         List<SectionEnrollmentResultView> resultViews = new ArrayList<>();

@@ -80,7 +80,7 @@ public class SectionControllerTest {
     @Test
     public void Given_sectionNoWithZeroNumber_When_addSection_Then_throwException() throws Exception {
         Course course = CourseBuilder.aCourse().build();
-        mvc.perform(post("/sections/section")
+        mvc.perform(post("/sections")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(new SectionView("0", modelMapper.map(course, CourseView.class)))))
                 .andDo(print())
@@ -94,7 +94,7 @@ public class SectionControllerTest {
     @Test
     public void Given_section_When_addSection_Then_returnSectionView() throws Exception {
         Course course = CourseBuilder.aCourse().build();
-        mvc.perform(post("/sections/section")
+        mvc.perform(post("/sections")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(new SectionView("1", modelMapper.map(course, CourseView.class)))))
                 .andDo(print())
@@ -106,7 +106,7 @@ public class SectionControllerTest {
         Section section = SectionBuilder.aSection().build();
         given(sectionRepository.findById(12L)).willReturn(Optional.of(section));
         ClassScheduleView classScheduleView = new ClassScheduleView("MONDAY", "08:00:00", "09:00:00");
-        mvc.perform(post("/sections/{id}/newClassSchedule", 12L)
+        mvc.perform(post("/sections/{id}/classSchedule", 12L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(classScheduleView)))
                 .andDo(print())
@@ -121,7 +121,7 @@ public class SectionControllerTest {
         Section section = SectionBuilder.aSection().build();
         given(sectionRepository.findById(12L)).willReturn(Optional.of(section));
         ClassScheduleView classScheduleView = new ClassScheduleView("MONDAY", "10:00:00", "09:00:00");
-        mvc.perform(post("/sections/{id}/newClassSchedule", 12L)
+        mvc.perform(post("/sections/{id}/classSchedule", 12L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(classScheduleView)))
                 .andDo(print())
@@ -137,7 +137,7 @@ public class SectionControllerTest {
         Section section = SectionBuilder.aSection().build();
         given(sectionRepository.findById(12L)).willReturn(Optional.of(section));
         ClassScheduleView classScheduleView = new ClassScheduleView("FRIDAY", "08:00:00", "09:00:00");
-        mvc.perform(post("/sections/{id}/newClassSchedule", 12L)
+        mvc.perform(post("/sections/{id}/classSchedule", 12L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(classScheduleView)))
                 .andDo(print())
@@ -154,7 +154,7 @@ public class SectionControllerTest {
         section.addClassSchedule(new ClassSchedule(WeekDayEnum.SATURDAY, new TimeSchedule(Time.valueOf("08:00:00"), Time.valueOf("10:00:00"))));
         given(sectionRepository.findById(12L)).willReturn(Optional.of(section));
         ClassScheduleView classScheduleView = new ClassScheduleView("SATURDAY", "08:00:00", "09:00:00");
-        mvc.perform(post("/sections/{id}/newClassSchedule", 12L)
+        mvc.perform(post("/sections/{id}/classSchedule", 12L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(classScheduleView)))
                 .andDo(print())

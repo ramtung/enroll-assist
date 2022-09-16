@@ -20,7 +20,7 @@ public class CourseController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public CourseView addCourse(@RequestBody @NotNull CourseView courseView) {
         try {
             validateBeforeSave(courseView);

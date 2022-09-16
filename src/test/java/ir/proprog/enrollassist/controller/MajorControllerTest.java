@@ -47,7 +47,7 @@ public class MajorControllerTest {
     public void Given_validNumberAndTitle_When_addMajor_Then_addSuccessfully() throws Exception {
         MajorView majorView = new MajorViewBuilder().build();
         when(majorRepository.findByMajorNumber(majorView.getMajorNumber())).thenReturn(Optional.empty());
-        mvc.perform(post("/majors/newMajor")
+        mvc.perform(post("/majors")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(majorView)))
                 .andExpect(status().isOk())
@@ -58,7 +58,7 @@ public class MajorControllerTest {
     @Test
     public void Given_majorWithNumericName_When_addMajor_Then_throwException() throws Exception {
         MajorView majorView = new MajorViewBuilder().withTitle("321").build();
-        mvc.perform(post("/majors/newMajor")
+        mvc.perform(post("/majors")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(majorView)))
                 .andExpect(status().isBadRequest())
@@ -71,7 +71,7 @@ public class MajorControllerTest {
     @Test
     public void Given_majorWithAlphabeticNumber_When_addMajor_Then_throwException() throws Exception {
         MajorView majorView = new MajorViewBuilder().withMajorNumber("cba").build();
-        mvc.perform(post("/majors/newMajor")
+        mvc.perform(post("/majors")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(majorView)))
                 .andExpect(status().isBadRequest())
@@ -84,7 +84,7 @@ public class MajorControllerTest {
     @Test
     public void Given_majorWithZeroNumber_When_addMajor_Then_throwException() throws Exception {
         MajorView majorView = new MajorViewBuilder().withMajorNumber("000000").build();
-        mvc.perform(post("/majors/newMajor")
+        mvc.perform(post("/majors")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(majorView)))
                 .andExpect(status().isBadRequest())
@@ -98,7 +98,7 @@ public class MajorControllerTest {
     public void Given_duplicateMajorNumber_When_addMajor_Then_throwException() throws Exception {
         MajorView majorView = new MajorViewBuilder().build();
         given(majorRepository.findByMajorNumber(majorView.getMajorNumber())).willReturn(Optional.of(modelMapper.map(majorView, Major.class)));
-        mvc.perform(post("/majors/newMajor")
+        mvc.perform(post("/majors")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(majorView)))
                 .andExpect(status().isBadRequest())

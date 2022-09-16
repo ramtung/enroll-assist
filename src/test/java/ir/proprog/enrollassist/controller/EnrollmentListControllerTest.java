@@ -123,7 +123,7 @@ public class EnrollmentListControllerTest {
         given(studentRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.of(student));
         given(enrollmentListRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.empty());
 
-        mvc.perform(post("/lists/newList")
+        mvc.perform(post("/lists")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(new EnrollmentListView(enrollmentListName, student.getStudentNumber()))))
                 .andExpect(status().isOk())
@@ -139,7 +139,7 @@ public class EnrollmentListControllerTest {
         given(studentRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.of(student));
         given(enrollmentListRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.empty());
         EnrollmentList enrollmentList = EnrollmentListBuilder.anEnrollmentList().withListName(enrollmentListName).withOwner(student).build();
-        mvc.perform(post("/lists/newList")
+        mvc.perform(post("/lists")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(new EnrollmentListView(enrollmentListName, student.getStudentNumber()))))
                 .andExpect(status().isOk());
@@ -154,7 +154,7 @@ public class EnrollmentListControllerTest {
         given(studentRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.of(student));
         given(enrollmentListRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.empty());
 
-        mvc.perform(post("/lists/newList")
+        mvc.perform(post("/lists/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(new EnrollmentListView(enrollmentListName, student.getStudentNumber()))))
                 .andExpect(status().isBadRequest())
@@ -171,7 +171,7 @@ public class EnrollmentListControllerTest {
         given(studentRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.of(student));
         given(enrollmentListRepository.findByStudentNumber(student.getStudentNumber())).willReturn(Optional.empty());
 
-        mvc.perform(post("/lists/newList")
+        mvc.perform(post("/lists")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(new EnrollmentListView(null, student.getStudentNumber()))))
                 .andExpect(status().isBadRequest())
@@ -188,7 +188,7 @@ public class EnrollmentListControllerTest {
 
         given(studentRepository.findByStudentNumber(studentNumber)).willReturn(Optional.empty());
 
-        mvc.perform(post("/lists/newList")
+        mvc.perform(post("/lists")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(new EnrollmentListView(enrollmentListName, studentNumber))))
                 .andExpect(status().isBadRequest())

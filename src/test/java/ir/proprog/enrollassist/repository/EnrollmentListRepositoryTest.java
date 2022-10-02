@@ -2,7 +2,7 @@ package ir.proprog.enrollassist.repository;
 
 import ir.proprog.enrollassist.controller.section.SectionDemandView;
 import ir.proprog.enrollassist.domain.entity.EnrollmentList;
-import ir.proprog.enrollassist.util.TestDataInitializer;
+import ir.proprog.enrollassist.util.SampleDataInitializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.tuple;
 @SpringBootTest
 public class EnrollmentListRepositoryTest {
     @Autowired
-    private TestDataInitializer testDataInitializer;
+    private SampleDataInitializer dataInitializer;
     @Autowired
     private EnrollmentListRepository enrollmentListRepository;
     @Autowired
@@ -25,12 +25,12 @@ public class EnrollmentListRepositoryTest {
 
     @BeforeEach
     public void populate() {
-        testDataInitializer.populate();
+        dataInitializer.populate();
     }
 
     @AfterEach
     public void cleanUp() {
-        testDataInitializer.deleteAll();
+        dataInitializer.deleteAll();
     }
 
     @Test
@@ -56,7 +56,7 @@ public class EnrollmentListRepositoryTest {
         assertThat(enrollmentLists).hasSize(1)
                 .extracting("listName", "finalList")
                 .containsExactlyInAnyOrder(
-                        tuple("Changiz's List", true)
+                        tuple("Student 2 List", true)
                 );
     }
 }

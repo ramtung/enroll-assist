@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Component
-@Profile("dev")
+//@Profile("dev")
 public class SampleDataInitializer {
     StudentRepository studentRepository;
     CourseRepository courseRepository;
@@ -32,7 +32,7 @@ public class SampleDataInitializer {
         this.levelRepository = levelRepository;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void populate() {
         Course math1 = new Course("4", new Name("MATH1"), 3);
         Course phys1 = new Course("8", new Name("PHYS1"), 3);
@@ -111,5 +111,13 @@ public class SampleDataInitializer {
         student2List.addSections(math2_1, phys1_1, ap_1, dm_1);
         student2List.setListAsFinal();
         enrollmentListRepository.save(student2List);
+    }
+    public void deleteAll() {
+        enrollmentListRepository.deleteAll();
+        sectionRepository.deleteAll();
+        studentRepository.deleteAll();
+        majorRepository.deleteAll();
+        levelRepository.deleteAll();
+        courseRepository.deleteAll();
     }
 }
